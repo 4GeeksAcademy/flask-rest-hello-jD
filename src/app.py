@@ -116,12 +116,12 @@ def del_favorite_person(people_id):
     return jsonify(response), 200
 
 @app.route("/favorite/planet/<int:planet_id>", methods=["DELETE"])
-def del_favorite_planet(people_id):
+def del_favorite_planet(planet_id):
     request_body = request.get_json()  
     if not request_body or 'user_id' not in request_body:
         return jsonify({"msg": "Solicitud incorrecta, falta user_id"}), 400
     user_id = request_body['user_id']
-    favorite_planet= Favorite_planet.query.filter_by(user_id=user_id, people_id=people_id).first()
+    favorite_planet= Favorite_planet.query.filter_by(user_id=user_id, planet_id=planet_id).first()
     if favorite_planet is None:
         return jsonify({"msg": "planeta favorito no encontrado"}), 404
     db.session.delete(favorite_planet)
